@@ -1,12 +1,11 @@
 import React from "react";
 
-const InfoCard = ({img, clr, singleColor}) => {
+const InfoCard = ({img, clr, singleColor, cardTitle, cardDetails}) => {
 
     let customStyle = `card lg:card-side shadow-xl text-white `;
 
     customStyle+= (singleColor)?`bg-${clr} `: 
     `bg-gradient-to-r from-${clr.from} to-${clr.to}`;
-    
     
   return (
     <div class={customStyle}>
@@ -17,8 +16,8 @@ const InfoCard = ({img, clr, singleColor}) => {
         />
       </figure>
       <div class="card-body">
-        <h2 class="card-title">New album is released!</h2>
-        <p>Click the button to listen on Spotiwhy app.</p>
+        <h2 class="card-title">{cardTitle}</h2>
+        <p>{cardDetails}</p>
       </div>
     </div>
   );
