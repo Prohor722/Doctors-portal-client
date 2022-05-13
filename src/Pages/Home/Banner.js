@@ -1,11 +1,14 @@
 import React from "react";
 import Chair from "../../assets/images/chair.png";
+import banner from "../../assets/images/bg.png";
 import PrimaryButton from "../Shared/PrimaryButton";
 
 const Banner = () => {
   return (
-    <div className="hero min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className="mx-12" style={{background: `url(${banner})`, backgroundSize: '82%',}}>
+      <div className="hero w-md py-28 my-10 ">
+      <div className="hero-content flex-col lg:flex-row-reverse" 
+      >
         <img
           src={Chair}
           className="max-w-lg rounded-lg shadow-2xl"
@@ -21,6 +24,7 @@ const Banner = () => {
           <PrimaryButton>Get Started</PrimaryButton>
         </div>
       </div>
+    </div>
     </div>
   );
 };

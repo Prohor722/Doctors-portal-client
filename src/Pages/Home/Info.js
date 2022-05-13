@@ -12,7 +12,7 @@ const Info = () => {
   ];
   const gradientColors = { from: "secondary", to: "primary" };
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 px-12">
       <InfoCard cardTitle={details[0].title} cardDetails={details[0].desc} img={clock} clr={gradientColors} singleColor={false} />
       <InfoCard cardTitle={details[1].title} cardDetails={details[1].desc} img={marker} clr="accent" singleColor={true} />
       <InfoCard cardTitle={details[2].title} cardDetails={details[2].desc} img={phone} clr={gradientColors} singleColor={false} />

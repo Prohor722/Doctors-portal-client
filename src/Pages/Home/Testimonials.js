@@ -12,7 +12,7 @@ const Testimonials = () => {
         { _id:3 ,name: "Winson Herry", review: "It is a long established fact that by the readable content of a lot layout. The point of using Lorem a more-or-less normal distribu to using Content here, content", img: people3, location: "california"},
     ]
   return (
-    <section className="my-28">
+    <section className="my-28 px-12">
       <div className="flex justify-between">
         <div>
           <h4 className="text-xl text-primary font-bold">Testimonials</h4>
