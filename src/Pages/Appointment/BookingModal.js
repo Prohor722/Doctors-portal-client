@@ -35,7 +35,7 @@ const handleBooking = (e)=>{
               disabled
               class="input input-bordered w-full font-bold"
             />
-            <select name="slot" class="select select-bordered w-full">
+            <select name="slot" class="select select-bordered font-bold w-full">
               {
                  slots.map(slot=><option value={slot}>{slot}</option>)
               }
