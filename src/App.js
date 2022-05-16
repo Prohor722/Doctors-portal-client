@@ -9,6 +9,7 @@ import ContactUs from "./Pages/ContactUs/ContactUs";
 import Login from './Pages/Login/Login'
 import SignUp from "./Pages/Login/SignUp";
 import RequireAuth from "./Pages/Login/RequireAuth";
+import Loading from "./Pages/Shared/Loading";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/contact" element={ <ContactUs/>}/>
         <Route path="/login" element={ <Login/>}/>
         <Route path="/signup" element={ <SignUp/>}/>
+        <Route path="/loading" element={ <Loading/>}/>
       </Routes>
     </div>
   );

@@ -3,6 +3,7 @@ import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfil
 import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import Loading from "../Shared/Loading";
 
 const SignUp = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -18,7 +19,7 @@ const SignUp = () => {
   }
 
   if(loading || googleLoading || updating){
-      return <h2>Loading...</h2>
+      return <Loading/>
   }
 
   if(user || googleUser){
