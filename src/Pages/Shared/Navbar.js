@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/icons/logo.png";
+import {useAuthState} from 'react-firebase-hooks/auth'
+import auth from '../../firebase.init'
+import {signOut} from 'firebase/auth'
 
 const Navbar = () => {
+  const [user, loading, error] = useAuthState(auth);
   const menuItems = (
     <>
       <li>
@@ -21,7 +25,11 @@ const Navbar = () => {
         <Link to="/contact">About</Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        {user? 
+          <button className="btn btn-ghost" onClick={()=>signOut(auth)}>Sign Out</button>
+          : 
+          <Link to="/login">Login</Link>
+          }
       </li>
     </>
   );
@@ -52,10 +60,10 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <a className="btn btn-ghost normal-case text-xl">
+        <Link to='/' className="btn btn-ghost normal-case text-xl">
           <img src={logo} className="w-8 mr-2" alt="" />
           Doctors Portal
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
