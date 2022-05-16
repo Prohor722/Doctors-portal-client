@@ -1,9 +1,16 @@
 import React from "react";
 import { format } from "date-fns";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+import Loading from "../Shared/Loading";
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const { name, slots } = treatment;
-  //   slots && slots.map(s=>console.log(s))
+  const [ user, loading, error] = useAuthState(auth);
+
+  if(loading){
+    <Loading/>
+  }
 
   const handleBooking = (e) => {
     e.preventDefault();
@@ -21,7 +28,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <label
-            for="booking-modal"
+            htmlFor="booking-modal"
             className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
@@ -42,14 +49,15 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
               name="slot"
               className="select select-bordered font-bold w-full"
             >
-              {slots.map((slot) => (
-                <option value={slot}>{slot}</option>
+              {slots.map((slot,index) => (
+                <option key={index} value={slot}>{slot}</option>
               ))}
             </select>
             <input
               name="name"
               type="text"
-              placeholder="Full Name"
+              value={user.displayName}
+              disabled
               className="input input-bordered w-full font-bold"
             />
             <input
@@ -61,13 +69,14 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
             <input
               name="email"
               type="text"
-              placeholder="Email"
+              disabled
+              value={user.email}
               className="input input-bordered w-full font-bold"
             />
             <input type="submit" className="btn btn-accent w-full" />
           </form>
           {/* <div className="modal-action">
-            <label for="booking-modal" className="btn">
+            <label htmlFor="booking-modal" className="btn">
               Yay!
             </label>
           </div> */}
