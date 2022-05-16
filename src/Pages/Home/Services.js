@@ -21,11 +21,12 @@ const Services = () => {
   ];
   return (
     <div className="my-28 px-12">
-        <div className="text-center mb-16">
-        <h3 className="text-primary text-xl font-bold uppercase">Our Services</h3>
+      <div className="text-center mb-16">
+        <h3 className="text-primary text-xl font-bold uppercase">
+          Our Services
+        </h3>
         <h2 className="text-4xl">Services We Provide</h2>
-
-        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         <Service img={fluoride} details={details[0]} />
         <Service img={cavity} details={details[1]} />

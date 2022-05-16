@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from '../../assets/icons/logo.png'
+import logo from "../../assets/icons/logo.png";
 
 const Navbar = () => {
   const menuItems = (
@@ -53,7 +53,7 @@ const Navbar = () => {
           </ul>
         </div>
         <a className="btn btn-ghost normal-case text-xl">
-          <img src={logo} className="w-8 mr-2" alt=""/>
+          <img src={logo} className="w-8 mr-2" alt="" />
           Doctors Portal
         </a>
       </div>

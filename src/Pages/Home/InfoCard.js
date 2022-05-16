@@ -4,9 +4,10 @@ const InfoCard = ({ img, clr, singleColor, cardTitle, cardDetails }) => {
   let customStyle = `card lg:card-side shadow-xl text-white `;
   // console.log(singleColor);
 
-  customStyle += singleColor && clr
-    ? `bg-${clr}`
-    : `bg-gradient-to-r from-${clr.from} to-${clr.to}`;
+  customStyle +=
+    singleColor && clr
+      ? `bg-${clr}`
+      : `bg-gradient-to-r from-${clr.from} to-${clr.to}`;
   console.log(clr);
 
   return (
