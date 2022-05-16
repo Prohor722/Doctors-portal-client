@@ -1,26 +1,112 @@
 import React from "react";
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import { useForm } from "react-hook-form";
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
 const Login = () => {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+  const [
+    signInWithEmailAndPassword, user, loading, error,] = useSignInWithEmailAndPassword(auth);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+  let errorMessage;
+
+  if(error || googleError){
+      errorMessage = <p className="text-red-600">{error?.message || googleError?.message}</p>
+  }
+
+  if(loading || googleLoading){
+      return <h2>Loading...</h2>
+  }
+
+  if(user){
+      console.log("success");
+  }
+  const onSubmit = (data) => {
+    console.log(data);
+    signInWithEmailAndPassword(data.email, data.password);
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">
       <div class="card w-96 bg-base-100 shadow-xl">
         <div class="card-body">
           <h2 class="text-center text-2xl mb-12">Login</h2>
-          <form >
-          <input type="text" placeholder="Email" name="email" class="input input-bordered w-full" />
-          <input type="text" placeholder="Password" name="password" class="input input-bordered w-full my-4" />
-          <input type="submit" value="Login" class="btn btn-accent w-full" />
+
+          <form onSubmit={handleSubmit(onSubmit)}>
+
+            <div class="form-control w-full max-w-xs">
+                <label class="label">
+                <span class="label-text">Email</span>
+                </label>
+                <input
+                type="email"
+                placeholder="Your Email"
+                class="input input-bordered w-full max-w-xs"
+                {...register("email", { 
+                    required:{
+                        value: true,
+                        message: 'Email is required'
+                    },
+                    pattern: {
+                        value: /[a-z0-9]+\.[a-z]{2,3}/,
+                        message: 'Email is not valid.'
+                    }
+                 })}
+                />
+                <label class="label">
+                {errors.email?.type === 'pattern' && <span class="label-text-alt text-red-600">{errors.email.message}</span>}
+                {errors.email?.type === 'required' && <span class="label-text-alt text-red-600">{errors.email.message}</span>}
+                
+                </label>
+            </div>
+            <div class="form-control w-full max-w-xs">
+                <label class="label">
+                <span class="label-text">Password</span>
+                </label>
+                <input
+                type="password"
+                placeholder="Enter Password"
+                class="input input-bordered w-full max-w-xs"
+                {...register("password", { 
+                    required:{
+                        value: true,
+                        message: 'Password is required'
+                    },
+                    minLength: {
+                        value: 6,
+                        message: 'Must be 6 characters or more.'
+                    }
+                 })}
+                />
+                <label class="label">
+                {errors.password?.type === 'minLength' && <span class="label-text-alt text-red-600">{errors.password.message}</span>}
+                {errors.password?.type === 'required' && <span class="label-text-alt text-red-600">{errors.password.message}</span>}
+                
+                </label>
+            </div>
+
+            <input type="submit" className="btn w-full max-w-xs" value="Login" />
           </form>
 
-          <p className="text-sm">New to Doctors Portal? <span className="text-secondary">Create new account</span></p>
+          {errorMessage}
+          <p className="text-sm">
+            New to Doctors Portal?{" "}
+            <span className="text-secondary">Create new account</span>
+          </p>
 
           <div class="divider">OR</div>
 
-          <button class="btn btn-accent btn-outline" onClick={()=>signInWithGoogle()}>Continue with Google</button>
+          <button
+            class="btn btn-accent btn-outline"
+            onClick={() => signInWithGoogle()}
+          >
+            Continue with Google
+          </button>
         </div>
       </div>
     </div>
