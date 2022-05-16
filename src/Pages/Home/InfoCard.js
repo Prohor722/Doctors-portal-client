@@ -8,7 +8,7 @@ const InfoCard = ({ img, clr, singleColor, cardTitle, cardDetails }) => {
     singleColor && clr
       ? `bg-${clr}`
       : `bg-gradient-to-r from-${clr.from} to-${clr.to}`;
-  console.log(clr);
+  // console.log(clr);
 
   return (
     <div className={customStyle}>
