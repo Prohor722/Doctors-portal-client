@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { format } from "date-fns";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
-import Loading from "../Shared/Loading";
+import Loading from "../Shared/Loading";import { toast } from 'react-toastify';
+
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const { name, slots } = treatment;
@@ -12,15 +13,43 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
     <Loading/>
   }
 
+  // const notify = () => toast("You have booked and appointment.");
+
   const handleBooking = (e) => {
     e.preventDefault();
     const slot = e.target.slot.value;
-    const patientName = e.target.name.value;
-    const email = e.target.email.value;
-    const phone = e.target.phone.value;
     console.log(slot);
+    const formattedDate = format(date, 'PP');
 
-    setTreatment(null);
+    const booking = {
+      treatment : name,
+      treatmentId : __dirname,
+      date: formattedDate,
+      slot,
+      patientName: user.displayName,
+      patientEmail: user.email,
+      phone: e.target.phone.value
+    }
+
+    fetch('http://localhost:5000/booking',{
+      method: 'POST',
+      headers:{
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(booking)
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(data);
+      if(data.success){
+        toast(`Appointment is set, ${formattedDate} at ${slot}`);
+      }
+      else{
+        toast.error(`Already have an Appointment on ${data.booking?.date} at ${data.booking?.slot}`);
+      }
+      setTreatment(null);
+    })
+
   };
   return (
     <div>
@@ -61,25 +90,21 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
               className="input input-bordered w-full font-bold"
             />
             <input
-              name="phone"
-              type="text"
-              placeholder="Phone Number"
-              className="input input-bordered w-full font-bold"
-            />
-            <input
               name="email"
               type="text"
               disabled
               value={user.email}
               className="input input-bordered w-full font-bold"
             />
+            <input
+              name="phone"
+              type="text"
+              placeholder="Phone Number"
+              className="input input-bordered w-full font-bold"
+            />
             <input type="submit" className="btn btn-accent w-full" />
           </form>
-          {/* <div className="modal-action">
-            <label htmlFor="booking-modal" className="btn">
-              Yay!
-            </label>
-          </div> */}
+
         </div>
       </div>
     </div>

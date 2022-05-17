@@ -10,11 +10,14 @@ import Login from './Pages/Login/Login'
 import SignUp from "./Pages/Login/SignUp";
 import RequireAuth from "./Pages/Login/RequireAuth";
 import Loading from "./Pages/Shared/Loading";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <div>
       <Navbar/>
+      <ToastContainer/>
       <Routes>
         <Route path="/" element={ <Home/>}/>
         <Route path="/about" element={ <About/>}/>
