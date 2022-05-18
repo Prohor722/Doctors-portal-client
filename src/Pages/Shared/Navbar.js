@@ -8,6 +8,11 @@ import dashboardIcon from '../../assets/icons/dashboardMenuIcon.png'
 
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
+
+  const logout = () =>{
+    signOut(auth);
+    localStorage.removeItem('accessToken');
+  }
   const menuItems = (
     <>
       <li>
@@ -27,13 +32,12 @@ const Navbar = () => {
       </li>
       {user && (
         <li>
-          {" "}
-          <Link to="/dashboard">Dashboard</Link>{" "}
+          <Link to="/dashboard">Dashboard</Link>
         </li>
       )}
       <li>
         {user ? (
-          <button className="btn btn-ghost" onClick={() => signOut(auth)}>
+          <button className="btn btn-ghost" onClick={logout}>
             Sign Out
           </button>
         ) : (
@@ -77,7 +81,7 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
-      <div className="navbar-end">
+      <div className="ml-auto">
         <label
           for="dashboard-sidebar"
           class="w-6 drawer-button lg:hidden"

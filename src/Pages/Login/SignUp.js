@@ -4,12 +4,18 @@ import auth from "../../firebase.init";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loading from "../Shared/Loading";
+import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+
     const [createUserWithEmailAndPassword,user,loading,error,] 
     = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
+
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
+    const [token] = useToken(user || googleUser);
+
   const {register,formState: { errors },handleSubmit,} = useForm();
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,13 +36,13 @@ const SignUp = () => {
       return <Loading/>
   }
 
-  if(user || googleUser){
-      console.log("success");
+  if(token){
+      // console.log("success");
+      navigate('/appointment');
   }
   const onSubmit = async(data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({displayName: data.name});
-    navigate('/appointment')
   };
     return (
         <div  className="flex justify-center items-center h-screen">
