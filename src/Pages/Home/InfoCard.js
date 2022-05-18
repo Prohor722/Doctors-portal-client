@@ -6,7 +6,7 @@ const InfoCard = ({ img, clr, singleColor, cardTitle, cardDetails }) => {
 
   customStyle +=
     singleColor && clr
-      ? `bg-${clr}`
+      ? `bg-accent`
       : `bg-gradient-to-r from-${clr.from} to-${clr.to}`;
   // console.log(clr);
 
