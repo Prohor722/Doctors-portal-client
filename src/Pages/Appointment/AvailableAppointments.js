@@ -2,22 +2,27 @@ import { format } from "date-fns";
 import React, { useEffect, useState } from "react";
 import AppoinmentService from "./AppoinmentService";
 import BookingModal from "./BookingModal";
-import { useQuery } from 'react-query'
+import { useQuery } from "react-query";
 import Loading from "../Shared/Loading";
 
 const AvailableAppointments = ({ date }) => {
   const [treatment, setTreatment] = useState(null);
-  
-  const formattedDate = format(date, "PP");
-  const { data: services, isLoading, refetch } = useQuery(['available', formattedDate],()=>
-    fetch(`http://localhost:5000/available?date=${formattedDate}`)
-      .then(res => res.json())
-  )
 
-  if(isLoading){
-    return <Loading/>
+  const formattedDate = format(date, "PP");
+  const {
+    data: services,
+    isLoading,
+    refetch,
+  } = useQuery(["available", formattedDate], () =>
+    fetch(
+      `https://intense-badlands-42287.herokuapp.com/available?date=${formattedDate}`
+    ).then((res) => res.json())
+  );
+
+  if (isLoading) {
+    return <Loading />;
   }
-  
+
   return (
     <div className="mb-28 mx-12">
       <h4 className="text-xl text-secondary text-center">

@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
-import {signOut} from 'firebase/auth'
+import { signOut } from "firebase/auth";
 
 const MyAppointments = () => {
   const [user, loading] = useAuthState(auth);
@@ -12,19 +12,22 @@ const MyAppointments = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/booking?email=${user.email}`,{
-        method: 'GET',
-        headers:{
-          'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      fetch(
+        `https://intense-badlands-42287.herokuapp.com/booking?email=${user.email}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }
-      })
+      )
         .then((res) => {
-          if(res.status === 401 || res.status === 403){
-            localStorage.removeItem('accessToken');
+          if (res.status === 401 || res.status === 403) {
+            localStorage.removeItem("accessToken");
             signOut(auth);
-            navigate('/');
+            navigate("/");
           }
-          return res.json()
+          return res.json();
         })
         .then((data) => {
           setAppointments(data);
@@ -32,7 +35,7 @@ const MyAppointments = () => {
     }
   }, [user]);
 
-//   console.log(appointments);
+  //   console.log(appointments);
 
   if (loading) {
     return <Loading />;
@@ -54,15 +57,15 @@ const MyAppointments = () => {
             </tr>
           </thead>
           <tbody>
-            {appointments.map((appointment,index) => 
+            {appointments.map((appointment, index) => (
               <tr key={appointment._id}>
-                <th>{index+1}</th>
+                <th>{index + 1}</th>
                 <td>{appointment.patientName}</td>
                 <td>{appointment.treatment}</td>
                 <td>{appointment.slot}</td>
                 <td>{appointment.date}</td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
       </div>
