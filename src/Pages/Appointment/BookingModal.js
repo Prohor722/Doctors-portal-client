@@ -32,7 +32,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
     };
     console.log(booking);
 
-    fetch("https://intense-badlands-42287.herokuapp.com/booking", {
+    fetch("http://localhost:5000/booking", {
       method: "POST",
       headers: {
         "content-type": "application/json",
