@@ -6,7 +6,7 @@ import Loading from "../Shared/Loading";
 import { toast } from "react-toastify";
 
 const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
-  const { name, slots } = treatment;
+  const { name, slots, price } = treatment;
   const [user, loading, error] = useAuthState(auth);
 
   if (loading) {
@@ -26,6 +26,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
       treatmentId: treatment._id,
       date: formattedDate,
       slot,
+      price,
       patientName: user.displayName,
       patientEmail: user.email,
       phone: e.target.phone.value,
