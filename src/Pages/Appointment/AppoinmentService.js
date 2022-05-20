@@ -19,7 +19,9 @@ const AppoinmentService = ({ service, setTreatment }) => {
           {len}
           {len > 1 ? " spaces" : " space"} available
         </p>
-        <p><small>Price: ${price}</small></p>
+        <p>
+          <small>Price: ${price}</small>
+        </p>
         <div className="card-actions justify-center">
           <label
             htmlFor="booking-modal"

@@ -13,12 +13,15 @@ const MyAppointments = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/booking?email=${user.email}`, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      fetch(
+        `https://intense-badlands-42287.herokuapp.com/booking?email=${user.email}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
         .then((res) => {
           if (res.status === 401 || res.status === 403) {
             localStorage.removeItem("accessToken");
@@ -43,8 +46,8 @@ const MyAppointments = () => {
     <div>
       <h2>My Appointments: {appointments.length}</h2>
 
-      <div class="overflow-x-auto">
-        <table class="table w-full">
+      <div className="overflow-x-auto">
+        <table className="table w-full">
           <thead>
             <tr>
               <th></th>
@@ -70,9 +73,7 @@ const MyAppointments = () => {
                     </Link>
                   )}
                   {appointment.price && appointment.paid && (
-                    <span className="text-success">
-                      paid
-                    </span>
+                    <span className="text-success">paid</span>
                   )}
                 </td>
               </tr>

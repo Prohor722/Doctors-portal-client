@@ -5,9 +5,13 @@ import DeleteConfirmModal from "./DeleteConfirmModal";
 import DoctorRow from "./DoctorRow";
 
 const ManageDoctors = () => {
-    const [deletingDoctor, setDeletingDoctor] = useState(null);
-  const { data: doctors, isLoading, refetch } = useQuery("doctors", () =>
-    fetch("http://localhost:5000/doctor", {
+  const [deletingDoctor, setDeletingDoctor] = useState(null);
+  const {
+    data: doctors,
+    isLoading,
+    refetch,
+  } = useQuery("doctors", () =>
+    fetch("https://intense-badlands-42287.herokuapp.com/doctor", {
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -21,8 +25,8 @@ const ManageDoctors = () => {
     <div>
       <h2>Manage Doctors {doctors?.length}</h2>
 
-      <div class="overflow-x-auto">
-        <table class="table w-full">
+      <div className="overflow-x-auto">
+        <table className="table w-full">
           <thead>
             <tr>
               <th className="">Serial</th>
@@ -33,15 +37,25 @@ const ManageDoctors = () => {
             </tr>
           </thead>
           <tbody>
-              {doctors.map((doctor, index) => (
-                <DoctorRow key={doctor._id} doctor={doctor} index={index} refetch={refetch}
-                setDeletingDoctor={setDeletingDoctor} />
-              ))}
+            {doctors.map((doctor, index) => (
+              <DoctorRow
+                key={doctor._id}
+                doctor={doctor}
+                index={index}
+                refetch={refetch}
+                setDeletingDoctor={setDeletingDoctor}
+              />
+            ))}
           </tbody>
         </table>
       </div>
-      {deletingDoctor && <DeleteConfirmModal 
-      deletingDoctor={deletingDoctor} refetch={refetch} setDeletingDoctor={setDeletingDoctor} />}
+      {deletingDoctor && (
+        <DeleteConfirmModal
+          deletingDoctor={deletingDoctor}
+          refetch={refetch}
+          setDeletingDoctor={setDeletingDoctor}
+        />
+      )}
     </div>
   );
 };

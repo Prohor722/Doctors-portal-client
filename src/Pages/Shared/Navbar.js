@@ -4,15 +4,15 @@ import logo from "../../assets/icons/logo.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { signOut } from "firebase/auth";
-import dashboardIcon from '../../assets/icons/dashboardMenuIcon.png'
+import dashboardIcon from "../../assets/icons/dashboardMenuIcon.png";
 
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
 
-  const logout = () =>{
+  const logout = () => {
     signOut(auth);
-    localStorage.removeItem('accessToken');
-  }
+    localStorage.removeItem("accessToken");
+  };
   const menuItems = (
     <>
       <li>
@@ -83,9 +83,11 @@ const Navbar = () => {
       </div>
       <div className="ml-auto">
         <label
-          for="dashboard-sidebar"
-          class="w-6 drawer-button lg:hidden"
-        ><img src={dashboardIcon} alt="dashboard hamburger icon"/></label>
+          htmlFor="dashboard-sidebar"
+          className="w-6 drawer-button lg:hidden"
+        >
+          <img src={dashboardIcon} alt="dashboard hamburger icon" />
+        </label>
       </div>
     </div>
   );

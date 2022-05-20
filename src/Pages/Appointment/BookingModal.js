@@ -18,7 +18,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
   const handleBooking = (e) => {
     e.preventDefault();
     const slot = e.target.slot.value;
-    console.log(slot);
+    // console.log(slot);
     const formattedDate = format(date, "PP");
 
     const booking = {
@@ -31,9 +31,9 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
       patientEmail: user.email,
       phone: e.target.phone.value,
     };
-    console.log(booking);
+    // console.log(booking);
 
-    fetch("http://localhost:5000/booking", {
+    fetch("https://intense-badlands-42287.herokuapp.com/booking", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -42,7 +42,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         if (data.success) {
           toast(`Appointment is set, ${formattedDate} at ${slot}`);
         } else {
